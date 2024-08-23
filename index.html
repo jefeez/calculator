@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MATH</title>
+  <script src="https://kit.fontawesome.com/fbdacccf07.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="w-screen h-screen antialiased font-jetbrains text-white/80">
+
+  <div id="app" class="w-full h-full bg-dark-1000 p-5 flex  items-center justify-center">
+    <!-- PROJECT -->
+    <div class="w-96 flex flex-col gap-3 p-2 bg-dark-800 border border-dark-500">
+      <div class="text-xs">MATH</div>
+      <div id="previous" class="text-xs flex flex-row-reverse">123456789 +</div>
+      <div id="current" class="text-6xl flex flex-row-reverse">123</div>
+      <div id="buttons" class="grid grid-cols-4 gap-1">
+
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">CE</button>
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">C</button>
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">DEL</button>
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">/</button>
+
+        <button class="bg-dark-500 hover:bg-dark-100 h-16 ">7</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">8</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">9</button>
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">*</button>
+
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">4</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">5</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">6</button>
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">-</button>
+
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">1</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">2</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">3</button>
+        <button class="bg-dark-600 hover:bg-dark-100 h-16">-</button>
+
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">0</button>
+        <button class="bg-dark-500 hover:bg-dark-100 h-16">.</button>
+        <button class="bg-indigo-500 hover:bg-indigo-600 h-16 col-span-2">=</button>
+
+      </div>
+    </div>
+    <!-- END PROJECT -->
+    <script type="module" src="./src/main.js"></script>
+
+</body>
+
+</html>
