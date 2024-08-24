@@ -1,110 +1,58 @@
+/* eslint-disable space-before-function-paren */
+import { evaluate } from 'mathjs'
 import './main.css'
 
-const previousEL = document.querySelector('#previous')
-const currentEL = document.querySelector('#current')
-const buttonsEL = document.querySelectorAll('#buttons > button')
+const previous = document.querySelector('#previous')
+const current = document.querySelector('#current')
+const buttons = document.querySelectorAll('#buttons > button')
 
 class Calculator {
-  constructor(previousEL, currentEL) {
-    this.previousEL = previousEL
-    this.currentEL = currentEL
-    this.currentOperation = ''
+  constructor(previous, current) {
+    this.previous = previous
+    this.current = current
   }
 
-  addDigit (digit) {
-    if (digit === '.' && this.currentEL.innerText.includes('.')) {
-      return
-    }
-
-    this.currentOperation = digit
-    this.updateScreen()
+  digit(digit) {
+    this.current.innerText += digit
+    this.current.innerText = this.current.innerText
+      .replace(/([+\-*/])/g, ' $1 ')
+      .replace(/\s{2,}/g, ' ')
+      .trim()
   }
 
-  updateScreen(operationValue = null, operation = null, current = null, previous = null) {
-    if (operationValue === null) {
-      this.currentEL.innerText += this.currentOperation
-    } else {
-      if (previous === 0) {
-        operationValue = current
-      }
-      this.previousEL.innerText = `${operationValue} ${operation}`
-      this.currentEL.innerText = ''
-    }
+  equals() {
+    this.previous.innerText = `${this.current.innerText} = `.replace(/([+\-*/])/g, ' $1 ')
+    this.current.innerText = evaluate(this.current.innerText)
   }
 
-  processOperator(operation) {
-    if (this.currentEL.innerText === '' && operation !== 'C') {
-      if (this.previousEL.innerText !== '') {
-        this.changeOperation(operation)
-      }
-      return
-    }
-
-    let operationValue
-    const previous = +this.previousEL.innerText.split(' ')[0]
-    const current = +this.currentEL.innerText
-
-    switch (operation) {
-      case '+':
-        operationValue = previous + current
-        this.updateScreen(operationValue, operation, current, previous)
-        break
-      case '-':
-        operationValue = previous - current
-        this.updateScreen(operationValue, operation, current, previous)
-        break
-      case '/':
-        operationValue = previous / current
-        this.updateScreen(operationValue, operation, current, previous)
-        break
-      case '*':
-        operationValue = previous * current
-        this.updateScreen(operationValue, operation, current, previous)
-        break
-
-      case 'DEL':
-        this.currentEL.innerText = this.currentEL.innerText.slice(0, -1)
-        break
-
-      case 'CE':
-        this.currentEL.innerText = ''
-        break
-
-      case 'C':
-        this.currentEL.innerText = ''
-        this.previousEL.innerText = ''
-        break
-
-      case '=':
-        const op = this.previousEL.innerText.split(' ')[1]
-        this.processOperator(op)
-        break
-
-      default:
-    }
+  clean() {
+    this.previous.innerText = ''
+    this.current.innerText = ''
   }
 
-  changeOperation(operation) {
-    const mathOperations = ['*', '/', '-', '+']
-    if (!mathOperations.includes(operation)) {
-      return
-    }
-    console.log(this.previousEL.innerText)
-    console.log(this.previousEL.innerText.slice(0, -1))
-    console.log(this.previousEL.innerText.slice(0, -1) + operation)
-    this.previousEL.innerText = this.previousEL.innerText.slice(0, -1) + operation
+  clearEntry() {
+    this.current.innerText = this.current.innerText.slice(0, -1)
   }
 }
 
-const calculator = new Calculator(previousEL, currentEL)
+const calculator = new Calculator(previous, current)
 
-buttonsEL.forEach((btn) => {
+buttons.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     const { innerText } = e.target
-    if (+innerText >= 0 || innerText === '.') {
-      calculator.addDigit(innerText)
-    } else {
-      calculator.processOperator(innerText)
+    if (!isNaN(innerText) || ['-', '+', '/', '*', '%', '.', '(', ')'].includes(innerText)) {
+      calculator.digit(innerText)
+    }
+    if (innerText === '=') {
+      calculator.equals()
+    }
+
+    if (innerText === 'C') {
+      calculator.clean()
+    }
+
+    if (innerText === 'CE') {
+      calculator.clearEntry()
     }
   })
 })
